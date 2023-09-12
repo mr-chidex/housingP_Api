@@ -1,0 +1,53 @@
+{
+  "name": "graphql-play",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "yarn clean && nodemon src/index.ts",
+    "start": "yarn build && node dist/index.js",
+    "build": "tsc -p .",
+    "build:watch": "tsc --watch",
+    "clean": "rm -rf dist",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch",
+    "lint": "eslint src/**/*.ts",
+    "lint:format": "eslint src/**/*.ts --fix",
+    "migration:create": "yarn typeorm migration:create  src/migrations/M",
+    "migration:gen": "yarn build && yarn typeorm migration:generate -o dist/migrations/M -d dist/data-source.js",
+    "migration:run": "yarn typeorm migration:run -d dist/data-source.js",
+    "migration:revert": "yarn typeorm migration:revert -d dist/data-source.js",
+    "prepare": "husky install"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/server": "^4.9.3",
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "graphql": "^16.8.0",
+    "pg": "^8.11.3",
+    "reflect-metadata": "^0.1.13",
+    "type-graphql": "^1.1.1",
+    "typeorm": "^0.3.17",
+    "typescript": "^5.2.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.14",
+    "@types/node": "^20.6.0",
+    "@typescript-eslint/eslint-plugin": "^6.7.0",
+    "@typescript-eslint/parser": "^6.7.0",
+    "eslint": "^8.49.0",
+    "eslint-plugin-react": "^7.33.2",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
+    "nodemon": "^3.0.1",
+    "prettier": "3.0.3",
+    "ts-node": "^10.9.1"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  }
+}
