@@ -13,6 +13,7 @@
     "test:watch": "jest --watch",
     "lint": "eslint src/**/*.ts",
     "lint:format": "eslint src/**/*.ts --fix",
+    "pretty": "yarn prettier --write .",
     "migration:create": "yarn typeorm migration:create  src/migrations/M",
     "migration:gen": "yarn build && yarn typeorm migration:generate -o dist/migrations/M -d dist/data-source.js",
     "migration:run": "yarn typeorm migration:run -d dist/data-source.js",
