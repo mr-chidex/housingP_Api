@@ -1,10 +1,31 @@
-import { ObjectType, Field, Int } from 'type-graphql';
+import { ObjectType, Field, ID } from 'type-graphql';
 
 @ObjectType()
 export class User {
-  @Field(() => Int)
-  id: number | undefined;
+  @Field(() => ID)
+  id: string;
 
   @Field()
-  email: string | undefined;
+  email: string;
+
+  @Field({ nullable: true })
+  firstName?: string;
+
+  @Field({ nullable: true })
+  lastName?: string;
+
+  @Field({ nullable: true })
+  phoneNumber?: string;
+
+  @Field()
+  createdAt: string;
+
+  @Field()
+  isLandlord: boolean;
+}
+
+@ObjectType()
+export class LoginResponse {
+  @Field()
+  accessToken: string;
 }

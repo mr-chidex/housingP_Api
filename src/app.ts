@@ -6,13 +6,14 @@ import { expressMiddleware } from '@apollo/server/express4';
 import { ApolloServerPluginDrainHttpServer } from '@apollo/server/plugin/drainHttpServer';
 import http from 'http';
 import { buildSchema } from 'type-graphql';
-import { UserResolver } from './resolvers/user';
 import { ApolloServer } from '@apollo/server';
-import morgan from 'morgan';
+
+import { UserResolver } from './resolvers/user';
+// import morgan from 'morgan';
 
 const app = express();
 app.disable('x-powered-by');
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 
 const httpServer = http.createServer(app);
 
