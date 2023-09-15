@@ -29,6 +29,13 @@ app.get('/', (_req, res) => res.json({ message: 'Hello', author: 'mr-chidex' }))
   const apolloServer = new ApolloServer({
     schema,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+    formatError: (error) => {
+      // Customize error formatting here
+      return {
+        message: error.message,
+        code: error.extensions?.code || 'INTERNAL_SERVER_ERROR',
+      };
+    },
   });
 
   await apolloServer.start();
