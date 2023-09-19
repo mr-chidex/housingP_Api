@@ -8,7 +8,7 @@ import http from 'http';
 import { buildSchema } from 'type-graphql';
 import { ApolloServer } from '@apollo/server';
 
-import { UserResolver } from './resolvers/user';
+import { UserResolver, PropertyResolver } from './resolvers';
 // import morgan from 'morgan';
 
 const app = express();
@@ -23,7 +23,7 @@ app.get('/', (_req, res) => res.json({ message: 'Hello', author: 'mr-chidex' }))
 
 (async () => {
   const schema = await buildSchema({
-    resolvers: [UserResolver],
+    resolvers: [UserResolver, PropertyResolver],
   });
 
   const apolloServer = new ApolloServer({
@@ -46,7 +46,7 @@ app.get('/', (_req, res) => res.json({ message: 'Hello', author: 'mr-chidex' }))
     express.json(),
     express.urlencoded({ extended: true }),
     expressMiddleware(apolloServer, {
-      context: async ({ req }) => ({ token: req.headers.token }),
+      context: async ({ req, res }) => ({ req, res }),
     }),
   );
 

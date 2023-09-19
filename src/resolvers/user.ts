@@ -1,9 +1,11 @@
-import { Arg, Mutation, Query, Resolver } from 'type-graphql';
+import { Arg, Mutation, Query, Resolver, UseMiddleware } from 'type-graphql';
 import { hash, compare } from 'bcryptjs';
-import { validateUser } from '../validators';
+
 import { prisma } from '../lib';
-import { LoginResponse, User } from '../entities/User';
+import { validateUser } from '../validators';
+import { LoginResponse, User } from '../entities';
 import { getAccessToken } from '../utils';
+import { isAuth } from '../middlewares/isAuth';
 
 @Resolver()
 export class UserResolver {
@@ -14,6 +16,7 @@ export class UserResolver {
 
   //get all users
   @Query(() => [User])
+  @UseMiddleware(isAuth)
   async users() {
     return await prisma.user.findMany();
   }

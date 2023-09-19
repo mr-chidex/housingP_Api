@@ -26,3 +26,20 @@ export interface JWTTOKEN {
   id: string;
   iss: string;
 }
+
+export interface Property {
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  name: string;
+  location: string;
+  description: string;
+  owernerId: string;
+  owrner: User;
+}
+
+export interface TContext {
+  req: Request;
+  res: Response;
+  user: User;
+}
