@@ -49,3 +49,9 @@ export interface PropertyDetails {
   location: string;
   description: string;
 }
+
+export interface AgentDetails {
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+}
