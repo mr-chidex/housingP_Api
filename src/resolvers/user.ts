@@ -1,12 +1,11 @@
-import { Arg, Ctx, Mutation, Query, Resolver, UseMiddleware } from 'type-graphql';
+import { Arg, Mutation, Query, Resolver, UseMiddleware } from 'type-graphql';
 import { hash, compare } from 'bcryptjs';
 
 import { prisma } from '../lib';
 import { validateUser } from '../validators';
-import { LoginResponse, Property, User } from '../entities';
+import { LoginResponse, User } from '../entities';
 import { getAccessToken } from '../utils';
 import { isAuth } from '../middlewares/isAuth';
-import { TContext } from '../types';
 
 @Resolver()
 export class UserResolver {
@@ -61,20 +60,5 @@ export class UserResolver {
     });
 
     return true;
-  }
-
-  //get user properties
-  @Query(() => [Property])
-  @UseMiddleware(isAuth)
-  async userProperties(@Ctx() { user }: TContext) {
-    if (!user.isLandlord) throw new Error('You are not yet an agent');
-
-    const properties = await prisma.property.findMany({
-      where: {
-        owrnerId: user.id,
-      },
-    });
-
-    return properties;
   }
 }
