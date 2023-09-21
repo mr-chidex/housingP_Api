@@ -21,6 +21,7 @@ export class UserResolver {
     return await prisma.user.findMany();
   }
 
+  //login user
   @Mutation(() => LoginResponse)
   async login(@Arg('email') email: string, @Arg('password') password: string) {
     const user = await prisma.user.findUnique({ where: { email: email } });
@@ -40,7 +41,7 @@ export class UserResolver {
     const { error } = validateUser({ email, password });
 
     if (error) {
-      throw new Error(error.message);
+      throw new Error(error.details[0].message);
     }
 
     //check if user with email exist

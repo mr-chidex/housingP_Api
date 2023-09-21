@@ -43,3 +43,9 @@ export interface TContext {
   res: Response;
   user: User;
 }
+
+export interface PropertyDetails {
+  name: string;
+  location: string;
+  description: string;
+}

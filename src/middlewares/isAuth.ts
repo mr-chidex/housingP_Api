@@ -24,7 +24,15 @@ export const isAuth: Middleware<TContext> = async ({ context }, next) => {
 
     await next();
   } catch (error) {
-    throw new Error('Error authenticating user. Please check token');
+    if (context.user) {
+      throw new Error(error as string);
+    }
+
+    if (process.env.NODE_ENV !== 'production') {
+      throw new Error(`Error authenticating user. Please check token, ${error}`);
+    }
+
+    throw new Error(`Error authenticating user. Please check token`);
   }
 };
 
