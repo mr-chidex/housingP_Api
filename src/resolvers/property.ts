@@ -27,6 +27,8 @@ export class PropertyResolver {
     @Arg('description') description: string,
     @Ctx() { user }: TContext,
   ) {
+    if (!user.isLandlord) throw new Error('Only Agents are allowed to add properties');
+
     const { error } = validateProperty({ name, location, description });
     if (error) {
       throw new Error(error.details[0].message);

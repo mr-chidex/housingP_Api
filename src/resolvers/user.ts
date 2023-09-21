@@ -67,6 +67,8 @@ export class UserResolver {
   @Query(() => [Property])
   @UseMiddleware(isAuth)
   async userProperties(@Ctx() { user }: TContext) {
+    if (!user.isLandlord) throw new Error('You are not yet an agent');
+
     const properties = await prisma.property.findMany({
       where: {
         owrnerId: user.id,
